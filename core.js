@@ -5,13 +5,20 @@ var CFG = window.HO_CONFIG || {};
 var HO = window.HO = { cfg: CFG };
 
 /* ---------- 내용 ---------- */
-HO.ADV = ['always', 'usually', 'often', 'sometimes', 'never'];
-HO.PHR = ['every day', 'once a day', 'twice a day', 'three times a day', 'once a week', 'twice a week', 'once a month'];
+HO.ADV_ALL = ['always', 'usually', 'often', 'sometimes', 'never'];     // 문장 가운데(하는 말 앞)에 오는 표현 (배운 표현으로 쳐요)
+HO.ADV = (CFG.hintAdverbs && CFG.hintAdverbs.length) ? CFG.hintAdverbs.slice() : HO.ADV_ALL.slice();   // 힌트로 보여 줄 것
+HO.PHR = (CFG.hintPhrases && CFG.hintPhrases.length) ? CFG.hintPhrases.slice() :                         // 문장 끝에 오는 표현 (힌트)
+  ['every day', 'once a day', 'twice a day', 'three times a day', 'four times a day', 'five times a day',
+   'once a week', 'twice a week', 'three times a week', 'four times a week', 'five times a week', 'twice a year'];
 HO.EXPR = HO.ADV.concat(HO.PHR);
-HO.IDEAS = ['eat fast food', 'play computer games', 'watch YouTube', 'read books', 'clean your room', 'ride a bike',
-  'eat ice cream', 'go to bed late', 'help your parents', 'play soccer', 'take a shower', 'eat breakfast'];
+/* once / twice / three~ten times  +  a day / week / month / year  은 모두 배운 표현이에요 (예: six times a day, twice a year) */
+var TIMES_RE = /^(once|twice|(three|four|five|six|seven|eight|nine|ten) times) a (day|week|month|year)$/;
+HO.isKnown = function (e) { return HO.ADV_ALL.indexOf(e) >= 0 || e === 'every day' || HO.PHR.indexOf(e) >= 0 || TIMES_RE.test(e); };
+HO.IDEAS = (CFG.ideaQuestions && CFG.ideaQuestions.length) ? CFG.ideaQuestions.slice() :
+  ['brush your teeth', 'wash your hands', 'exercise', 'eat breakfast', 'eat fast food', 'eat vegetables',
+   'play badminton', 'play computer games', 'watch YouTube', 'read books', 'take a shower', 'go to bed late'];
 HO.TEXTBOOK = (CFG.textbookQuestions && CFG.textbookQuestions.length) ? CFG.textbookQuestions.slice() :
-  ['brush your teeth', 'drink water', 'wash your hands', 'exercise', 'eat breakfast', 'eat fast food'];
+  ['brush your teeth', 'wash your hands', 'exercise', 'eat breakfast', 'eat fast food', 'eat vegetables', 'play badminton', 'brush your hair'];
 HO.TITLE = CFG.title || '우리 반 설문 조사 · 6학년 10단원 How often do you ~?';
 
 /* ---------- 도우미 ---------- */
@@ -46,14 +53,15 @@ HO.checkExpr = function (raw) {
   if (HO.hasKorean(t)) return { ok: false, error: '영어로 써 주세요.' };
   t = t.replace(/[.!?\s]+$/, '');
   if (!t) return { ok: false, error: '얼마나 자주 하는지 써 주세요.' };
+  if (/^[0-9]/.test(t)) return { ok: false, error: '숫자 말고 글자로 써 주세요. (예: four times a week)' };
   if (!/^[A-Za-z][A-Za-z0-9' ,-]*$/.test(t)) return { ok: false, error: '영어 낱말로만 써 주세요.' };
   if (t.length > 40) return { ok: false, error: '조금 짧게 써 주세요. (40자까지)' };
   t = t.toLowerCase();
-  return { ok: true, value: t, known: HO.EXPR.indexOf(t) >= 0 };
+  return { ok: true, value: t, known: HO.isKnown(t) };
 };
 HO.exprPos = function (e) {
-  if (HO.ADV.indexOf(e) >= 0) return 'pre';
-  if (HO.PHR.indexOf(e) >= 0) return 'post';
+  if (HO.ADV_ALL.indexOf(e) >= 0) return 'pre';
+  if (e === 'every day' || HO.PHR.indexOf(e) >= 0 || TIMES_RE.test(e)) return 'post';
   return String(e).indexOf(' ') < 0 ? 'pre' : 'post';
 };
 HO.myVerb = function (v) {

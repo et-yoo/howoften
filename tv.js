@@ -50,7 +50,7 @@ function setupHTML() {
     '<p>③ <b>결과</b> — TV에 질문마다 통계와 기타 의견을 보여 줘요. 누가 썼는지는 가려져요.</p></div>' +
     '<div class="grp"><h3>학생 한 명이 낼 질문 수</h3><div class="chips">' + chips('per', [1, 2, 3, 5], function (v) { return v + '개'; }) + '</div></div>' +
     '<div class="grp"><h3>설문에 넣을 질문 수 (선생님이 고르기)</h3><div class="chips">' + chips('pick', [5, 8, 10, 15, 20, 30], function (v) { return v + '개'; }) + '</div></div>' +
-    '<div class="grp"><h3>대답할 때 표현 힌트</h3><div class="chips">' + chips('hint', ['none', 'show', 'tap'], function (v) { return { none: '없음', show: '보기만', tap: '눌러서 넣기' }[v]; }) + '</div><p class="note">always · sometimes · once a day · twice a week …</p></div>' +
+    '<div class="grp"><h3>대답할 때 표현 힌트</h3><div class="chips">' + chips('hint', ['none', 'show', 'tap'], function (v) { return { none: '없음', show: '보기만', tap: '눌러서 넣기' }[v]; }) + '</div><p class="note">often · every day · three times a day · five times a week …</p></div>' +
     '<label class="check"><input type="checkbox" data-act="tb"' + (st.textbook ? ' checked' : '') + '><span>교과서 질문 ' + HO.TEXTBOOK.length + '개도 질문 상자에 넣어 두기 <small>(' + esc(HO.TEXTBOOK.slice(0, 2).join(', ')) + ' …)</small></span></label>' +
     (needPw ? '<div class="field"><label for="pw">교사 비밀번호</label><input id="pw" type="password" autocomplete="off" value="' + esc(S.pw) + '"></div>' : '') +
     '<p class="err">' + esc(S.err) + '</p>' +
