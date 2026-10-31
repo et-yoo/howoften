@@ -141,7 +141,7 @@ function editBody(meta) {
   function chips(arr, a) { return arr.map(function (e) { return tap ? '<button class="h' + (a ? ' a' : '') + '" data-act="hint" data-v="' + esc(e) + '">' + esc(e) + '</button>' : '<span class="h' + (a ? ' a' : '') + '">' + esc(e) + '</span>'; }).join(''); }
   var hints = hint === 'none' ? '<div class="hints"><p>오늘은 힌트 없이 써 봐요! 위치는 화면이 알아서 맞춰 줘요.</p></div>' :
     '<div class="hints"><h4>이런 표현을 써요</h4><div class="g"><em>하는 말 앞에 와요</em>' + chips(HO.ADV, true) + '</div><div class="g"><em>문장 끝에 와요</em>' + chips(HO.PHR) + '</div>' +
-    '<p>' + (tap ? '대답할 때 화면 아래에 이 표현들이 보여요. 눌러서 넣을 수도 있어요.' : '대답할 때 화면 아래에 이 표현들이 보여요.') + '</p></div>';
+    '<p>' + (tap ? '표현을 눌러서 넣거나, 아래 자판으로 직접 써도 돼요.' : '표현을 보고 아래 자판으로 써 봐요.') + '</p></div>';
   var hasA = !!(myAnswers()[q.k] && myAnswers()[q.k].e), same = hasA && myAnswers()[q.k].e === S.typer.text.trim().toLowerCase();
   var html = '<div class="ed"><div class="acts" style="margin:0 0 .4rem"><button class="sbtn ghost" data-act="tolist" style="padding:.5rem 1rem;font-size:.95rem">◀ 목록</button></div>' +
     '<div class="qbig"><span class="qn">' + (idx + 1) + '번 질문</span><br>' + esc(HO.question(q.text)) + '</div>' +
