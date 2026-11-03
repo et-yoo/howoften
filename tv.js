@@ -45,9 +45,9 @@ function setupHTML() {
     '<h1><span>📊</span><span>How Often?</span></h1><p class="sub">' + esc(HO.TITLE) + '</p>' +
     '<div class="pills"><button class="pill v" data-act="tutorial">🎓 처음이세요? 튜토리얼</button><button class="pill a" data-act="guide">📖 아이들용 활동 방법 슬라이드</button></div>' +
     (fb ? '' : '<div class="warnbox">⚠️ Firebase 설정(<b>config.js</b>)이 아직 없어요. 지금은 <b>이 컴퓨터의 이 브라우저 안</b>에서만 연결되는 시험 방식이에요. 연습 방은 설정 없이도 돼요.</div>') +
-    '<div class="how"><p>① <b>질문 모으기</b> — 학생이 QR로 들어와 <i>How often do you ___?</i> 질문을 써서 내요.</p>' +
-    '<p>② <b>대답하기</b> — 선생님이 고른 질문이 하나씩 나오고, <i>I ( ___ ) eat vegetables.</i> 괄호를 써요.</p>' +
-    '<p>③ <b>결과</b> — TV에 질문마다 통계와 기타 의견을 보여 줘요. 누가 썼는지는 가려져요.</p></div>' +
+    '<div class="how"><p><b>① 질문 모으기</b><span>학생이 QR로 들어와 <i>How often do you ___?</i> 질문을 써서 내요.</span></p>' +
+    '<p><b>② 대답하기</b><span>고른 질문이 하나씩 나오면 <i>I ( ___ ) eat vegetables.</i> 괄호를 채워요.</span></p>' +
+    '<p><b>③ 결과</b><span>TV에 질문마다 통계와 기타 의견이 나와요. 누가 썼는지는 가려져요.</span></p></div>' +
     '<div class="grp"><h3>학생 한 명이 낼 질문 수</h3><div class="chips">' + chips('per', [1, 2, 3, 5], function (v) { return v + '개'; }) + '</div></div>' +
     '<div class="grp"><h3>설문에 넣을 질문 수 (선생님이 고르기)</h3><div class="chips">' + chips('pick', [5, 8, 10, 15, 20, 30], function (v) { return v + '개'; }) + '</div></div>' +
     '<div class="grp"><h3>대답할 때 표현 힌트</h3><div class="chips">' + chips('hint', ['none', 'show', 'tap'], function (v) { return { none: '없음', show: '보기만', tap: '눌러서 넣기' }[v]; }) + '</div><p class="note">often · every day · three times a day · five times a week …</p></div>' +
